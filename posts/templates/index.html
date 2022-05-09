@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block head%}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
+{%endblock%}
+
+{% block conteudo %}
+
+    <main>
+        <div class="container-posts">
+            <div class="post-home">
+                <div class="foto-post-home">
+                    <img src="{% static 'img/post.jpg'%}"/>
+                    <div class="info-post">
+                        <span><i class="fas fa-user"></i>{{ posts.0.usuario.nome }}</span>
+                        <span><i class="fa fa-calendar" aria-hidden="true"></i>{{ posts.0.data }}</span>
+                        <span><i class="fa-solid fa-comment"></i> N comentarios</span>
+                    </div>
+                </div>
+                <div class="info-conteudo-post">
+                    <span class="titulo-post">{{ posts.0.titulo }}</span>
+                    <span class="categoria">{{ posts.0.categoria.dsc_categoria }}</span>
+                </div>
+            </div>
+
+            
+            <div class="coluna-posts">
+                <span>Outros Posts</span>
+                {% for post in posts %}
+                {% if not forloop.first %}
+                <a href="{% url 'post' post.id %}">
+                    <div class="post-linha">
+                        {% if post.foto_post != ''%}
+                        <img src="{{ post.foto_post.url }}"/>
+                        {% else %}
+                        <img src="static/img/post.jpg"/>
+                        {% endif %}
+                        <div class="info-post-vertical">
+                            <span>{{ post.titulo }}</span>
+                            <span>{{ post.data }}</span>
+                        </div>
+                    </div>
+                </a>
+                {%endif%}
+                {% endfor %}
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+{% endblock %}

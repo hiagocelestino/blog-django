@@ -1,0 +1,68 @@
+{% load static %}
+<div class="container-comentarios">
+    <div class="comentar">
+      <form onsubmit="return valida_form();" method="POST" action="/comentar" id="form-comentario">
+        <input type="hidden" name="p_i" id="p_i" value="{{ post_id }}" />
+        <label>Nome:</label>
+        <input type="text" name="cmp_nome" id="cmp_nome" />
+        <label>Titulo:</label>
+        <input type="text" name="cmp_titulo" id="cmp_titulo" />
+        <label>Comentário:</label>
+        <textarea type="text" name="cmp_comentario" id="cmp_comentario"></textarea>
+        <button type="submit" class="btn btn-secondary">Comentar</button>
+      </form>
+    </div>
+    
+    <div class="comentarios-feitos">
+      <span>Comentários:</span>
+
+      {% if comentarios %}
+      {% for comentario in comentarios %}
+      <div class="comentario">
+        <div class="tit-comentarios">
+          <span>{{comentario.autor}}</span>
+          <span>{{comentario.data}}</span>
+        </div>
+
+        <div>
+          <span class="titulo-post">{{comentario.titulo}}</span>
+        </div>
+        <div class="body-comentario">
+          {{comentario.corpo_comentario}}
+        </div>  
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>Não existem comentarios para esse post.</p>
+      {% endif%}
+      
+    </div>
+
+  </div>
+
+  <script>
+    function valida_form(){
+      cmp_nome = $('#cmp_nome');
+      if(cmp_nome.val() == ''){
+        alert('Insira seu nome para fazer um comentário!');
+        cmp_nome.focus();
+        return false;
+      }
+
+      cmp_titulo = $('#cmp_titulo');
+      if(cmp_titulo.val() == ''){
+        alert('Titulo não pode estar vazio!');
+        cmp_titulo.focus();
+        return false;
+      }
+
+      cmp_comentario = $('#cmp_comentario');
+      if(cmp_comentario.val() == ''){
+        alert('Comentário não pode estar vazio!');
+        cmp_comentario.focus();
+        return false;
+      }
+      return true;
+    }
+
+  </script>

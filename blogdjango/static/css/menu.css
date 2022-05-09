@@ -1,0 +1,14 @@
+nav{
+    height:160px;
+    font-size:18px;
+}
+nav li{
+    padding: 5px 15px;
+}
+.navbar-expand-lg .navbar-collapse{
+    justify-content:space-around;
+}
+
+nav form{
+    display:flex;
+}

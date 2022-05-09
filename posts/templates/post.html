@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block head%}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/comentarios.css' %}">
+{%endblock%}
+
+{% block conteudo %}
+
+    <main>
+
+      <div>
+
+        <div class="cabecalho-post">
+          <span class="cab-titulo">{{ post.titulo }}</span>
+          <span class="cab-infos">{{ post.data }}</span>
+        </div>
+
+        <div class="imagem-post-completo">
+          <img src="{% static 'img/post.jpg' %}" />
+        </div>
+
+        <div class="body-post">{{ post.corpo_post }}</div>
+
+        <div class="post-categoria">
+          <span>Categorias</span>
+          <div class="categorias">
+            <span>{{ post.categoria.dsc_categoria }}</span>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="container-comentarios" id="container-comentarios">
+
+      </div>
+    </main>
+    <script>
+      
+      $.ajax({
+        url:'/comentario/{{post.id}}',
+        method:'GET'
+      }).done(retorno =>{
+          container_comentario = $('#container-comentarios');
+          container_comentario.html(retorno);
+      })
+    </script>
+{% endblock %}
